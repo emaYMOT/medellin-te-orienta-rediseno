@@ -129,7 +129,7 @@
 
     /* ───────── Base ───────── */
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(88px + env(safe-area-inset-top)); -webkit-text-size-adjust: 100%; }
     body {
       margin: 0;
       background: var(--paper);
@@ -142,6 +142,7 @@
       -webkit-tap-highlight-color: transparent;
       text-rendering: optimizeLegibility;
       overflow-x: clip;
+      padding-top: calc(68px + env(safe-area-inset-top));
     }
     body::before {
       content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none;
@@ -170,7 +171,7 @@
 
     /* ───────── Header ───────── */
     .site-header {
-      position: sticky; top: 0; z-index: 50;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
       padding-top: env(safe-area-inset-top);
       background: var(--header-bg);
       -webkit-backdrop-filter: saturate(160%) blur(14px);
@@ -518,11 +519,11 @@
       .lines-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 720px) {
-      html { scroll-padding-top: 76px; }
+      html { scroll-padding-top: calc(76px + env(safe-area-inset-top)); }
+      body { padding-top: calc(60px + env(safe-area-inset-top)); }
       .shell { width: calc(100% - 32px); }
       .header-row { height: 60px; }
-      .site-header { background: color-mix(in srgb, var(--paper) 94%, transparent); }
-      .site-header::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; background: var(--paper); pointer-events: none; }
+      .site-header { background: color-mix(in srgb, var(--paper) 80%, transparent); }
       .brand-caption { display: none; }
       .nav-link { display: none; }
       .theme-toggle { margin-left: 0; width: 38px; height: 38px; }
@@ -580,6 +581,7 @@
       body { background: #fff; }
       body::before, .site-header .nav, .hero-actions, .call-btn, .route-links, .place-link { display: none !important; }
       .site-header { position: static; }
+      body { padding-top: 0; }
       .shell { width: 100%; }
       .route-panel { position: static; }
       .emergency, .incident, .route-panel, .line-card, .place-card { box-shadow: none; break-inside: avoid; }
