@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a1420" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <meta name="description" content="Encuentra orientación clara y canales oficiales para reportar incidentes en Medellín.">
+  <title>Medellín Te Orienta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ───────── Tokens ───────── */
+    :root {
+      color-scheme: light;
+      --paper: #f5f3ee;
+      --paper-2: #efece5;
+      --surface: #ffffff;
+      --surface-2: #faf9f6;
+      --ink: #0d1b2a;
+      --ink-2: #33445a;
+      --muted: #5d6b7c;
+      --line: rgba(13, 27, 42, .09);
+      --line-strong: rgba(13, 27, 42, .16);
+      --brand: #1d4f8c;
+      --brand-ink: #163f71;
+      --brand-soft: #e6eef8;
+      --marigold: #f2b53a;
+      --marigold-hover: #f6c45c;
+      --marigold-ink: #2a1d02;
+      --coral: #b83a27;
+      --coral-soft: #fbeae5;
+      --night: #0d1b2a;
+      --night-2: #142640;
+      --on-night: #f3f5f8;
+      --on-night-muted: #a9b7c8;
+      --ring: #2f73c8;
+      --header-bg: rgba(245, 243, 238, .72);
+      --shadow-sm: 0 1px 1px rgba(13,27,42,.04), 0 2px 4px rgba(13,27,42,.04);
+      --shadow-md: 0 1px 2px rgba(13,27,42,.04), 0 6px 16px rgba(13,27,42,.06), 0 18px 40px -12px rgba(13,27,42,.10);
+      --shadow-lg: 0 2px 4px rgba(13,27,42,.05), 0 16px 32px rgba(13,27,42,.10), 0 40px 80px -24px rgba(13,27,42,.22);
+      --hero-glow: radial-gradient(60% 70% at 15% 0%, rgba(29,79,140,.10), transparent 70%), radial-gradient(40% 50% at 95% 10%, rgba(242,181,58,.14), transparent 70%);
+      --grain-opacity: .045;
+      --glass: rgba(255,255,255,.55);
+      --glass-strong: rgba(255,255,255,.82);
+      --glass-edge: rgba(255,255,255,.75);
+
+      --ease-out: cubic-bezier(.23, 1, .32, 1);
+      --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+
+      --font: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display: "Outfit", "Geist", sans-serif;
+      --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --paper: #0a1420;
+        --paper-2: #0d1926;
+        --surface: #111f30;
+        --surface-2: #0f1c2b;
+        --ink: #eef2f7;
+        --ink-2: #c7d1dd;
+        --muted: #95a3b5;
+        --line: rgba(238, 242, 247, .08);
+        --line-strong: rgba(238, 242, 247, .16);
+        --brand: #7fb0ec;
+        --brand-ink: #a9cbf4;
+        --brand-soft: rgba(127, 176, 236, .12);
+        --coral: #f08a74;
+        --coral-soft: rgba(240, 138, 116, .12);
+        --night: #142a45;
+        --night-2: #1a3456;
+        --ring: #7fb0ec;
+        --header-bg: rgba(10, 20, 32, .72);
+        --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+        --shadow-md: 0 1px 2px rgba(0,0,0,.3), 0 10px 24px rgba(0,0,0,.25);
+        --shadow-lg: 0 2px 4px rgba(0,0,0,.3), 0 24px 60px -12px rgba(0,0,0,.5);
+        --hero-glow: radial-gradient(60% 70% at 15% 0%, rgba(127,176,236,.12), transparent 70%), radial-gradient(40% 50% at 95% 10%, rgba(242,181,58,.08), transparent 70%);
+        --grain-opacity: .06;
+        --glass: rgba(255,255,255,.06);
+        --glass-strong: rgba(255,255,255,.12);
+        --glass-edge: rgba(255,255,255,.14);
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #0a1420;
+      --paper-2: #0d1926;
+      --surface: #111f30;
+      --surface-2: #0f1c2b;
+      --ink: #eef2f7;
+      --ink-2: #c7d1dd;
+      --muted: #95a3b5;
+      --line: rgba(238, 242, 247, .08);
+      --line-strong: rgba(238, 242, 247, .16);
+      --brand: #7fb0ec;
+      --brand-ink: #a9cbf4;
+      --brand-soft: rgba(127, 176, 236, .12);
+      --coral: #f08a74;
+      --coral-soft: rgba(240, 138, 116, .12);
+      --night: #142a45;
+      --night-2: #1a3456;
+      --ring: #7fb0ec;
+      --header-bg: rgba(10, 20, 32, .72);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+      --shadow-md: 0 1px 2px rgba(0,0,0,.3), 0 10px 24px rgba(0,0,0,.25);
+      --shadow-lg: 0 2px 4px rgba(0,0,0,.3), 0 24px 60px -12px rgba(0,0,0,.5);
+      --hero-glow: radial-gradient(60% 70% at 15% 0%, rgba(127,176,236,.12), transparent 70%), radial-gradient(40% 50% at 95% 10%, rgba(242,181,58,.08), transparent 70%);
+      --grain-opacity: .06;
+      --glass: rgba(255,255,255,.06);
+      --glass-strong: rgba(255,255,255,.12);
+      --glass-edge: rgba(255,255,255,.14);
+    }
+
+    /* ───────── Base ───────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none;
+      opacity: var(--grain-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; }
+    h1, h2, h3, p { margin: 0; }
+    svg { display: block; flex-shrink: 0; }
+    :focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; border-radius: 10px; }
+
+    .shell { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+
+    .skip-link {
+      position: fixed; left: 16px; top: 12px; z-index: 200;
+      transform: translateY(-200%); padding: 12px 16px; border-radius: 12px;
+      background: var(--ink); color: var(--paper); font-weight: 600; text-decoration: none;
+      transition: transform 200ms var(--ease-out);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* Pressable feedback — shared */
+    .press { transition: transform 160ms var(--ease-out), background-color 160ms ease, border-color 160ms ease, box-shadow 200ms ease, color 160ms ease; }
+    .press:active { transform: scale(.97); }
+
+    /* ───────── Header ───────── */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--header-bg);
+      -webkit-backdrop-filter: saturate(160%) blur(14px);
+      backdrop-filter: saturate(160%) blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-row { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-mark {
+      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px;
+      color: #fff; background: linear-gradient(160deg, #2a64a8, #143a68);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 2px 6px rgba(20,58,104,.25);
+    }
+    .brand-name { display: block; white-space: nowrap; font: 700 16px/1.1 var(--display); letter-spacing: -.02em; }
+    .brand-caption { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .nav { display: flex; align-items: center; gap: 6px; }
+    .nav-link {
+      padding: 8px 12px; border-radius: 999px; color: var(--ink-2);
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+    .call-pill {
+      min-height: 40px; display: inline-flex; align-items: center; gap: 8px; margin-left: 8px;
+      padding: 0 16px 0 12px; border-radius: 999px; text-decoration: none;
+      background: var(--coral); color: #fff; font-size: 14px; font-weight: 600;
+    }
+    :root[data-theme="dark"] .call-pill, :root[data-theme="dark"] .fab { color: #1a0b07; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .call-pill, :root:not([data-theme="light"]) .fab { color: #1a0b07; } }
+    .call-pill .num { font-family: var(--mono); font-weight: 600; letter-spacing: -.02em; }
+    .pulse-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+    .pulse-dot::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%; background: currentColor;
+      animation: pulse 2.4s var(--ease-out) infinite;
+    }
+    @keyframes pulse { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(2.8); opacity: 0; } }
+
+    /* ───────── Hero ───────── */
+    .hero { position: relative; padding: 72px 0 56px; isolation: isolate; }
+    .hero::before { content: ""; position: absolute; inset: -68px 0 0; z-index: -1; background: var(--hero-glow); pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .8fr); gap: 56px; align-items: end; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+      padding: 6px 12px 6px 6px; border: 1px solid var(--line-strong); border-radius: 999px;
+      background: var(--surface); box-shadow: var(--shadow-sm);
+      color: var(--ink-2); font-size: 13px; font-weight: 500;
+    }
+    .eyebrow-tag { padding: 2px 8px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+    h1 {
+      max-width: 13ch;
+      font: 700 clamp(46px, 7vw, 92px)/.96 var(--display);
+      letter-spacing: -.04em;
+      text-wrap: balance;
+    }
+    h1 em { font-style: normal; color: var(--brand); }
+    .hero-copy { max-width: 46ch; margin-top: 24px; color: var(--muted); font-size: 19px; line-height: 1.55; text-wrap: pretty; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 32px; }
+    .btn-primary {
+      min-height: 52px; display: inline-flex; align-items: center; gap: 12px;
+      padding: 0 8px 0 22px; border-radius: 999px; text-decoration: none;
+      background: var(--ink); color: var(--paper); font-size: 15px; font-weight: 600;
+      box-shadow: var(--shadow-md);
+    }
+    .btn-primary .btn-icon {
+      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%;
+      background: color-mix(in srgb, currentColor 14%, transparent);
+      transition: transform 220ms var(--ease-out);
+    }
+    .btn-ghost {
+      min-height: 52px; display: inline-flex; align-items: center; gap: 8px;
+      padding: 0 20px; border-radius: 999px; text-decoration: none;
+      border: 1px solid var(--line-strong); color: var(--ink); font-size: 15px; font-weight: 500;
+    }
+    .assurances { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 40px; padding: 0; list-style: none; color: var(--muted); font-size: 14px; }
+    .assurances li { display: inline-flex; align-items: center; gap: 8px; }
+    .assurances svg { color: var(--brand); }
+
+    /* Emergency card */
+    .emergency {
+      --pad: 28px;
+      position: relative; overflow: hidden; padding: var(--pad); border-radius: var(--radius-lg);
+      background:
+        radial-gradient(120% 80% at 100% 0%, rgba(242,181,58,.16), transparent 55%),
+        linear-gradient(165deg, var(--night-2), var(--night));
+      color: var(--on-night); box-shadow: var(--shadow-lg);
+    }
+    .emergency::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    .emergency-rings {
+      position: absolute; right: -90px; top: -90px; width: 260px; height: 260px; border-radius: 50%; pointer-events: none;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 0 0 36px rgba(255,255,255,.025), 0 0 0 72px rgba(255,255,255,.018);
+    }
+    .emergency-kicker {
+      position: relative; display: flex; align-items: center; gap: 12px;
+      margin: calc(var(--pad) * -1) calc(var(--pad) * -1) 0; padding: 14px var(--pad);
+      background: var(--marigold); color: var(--marigold-ink);
+      font: 700 17px/1.2 var(--display); letter-spacing: -.01em;
+      box-shadow: inset 0 -1px 0 rgba(42,29,2,.12);
+    }
+    .emergency-kicker .kicker-icon {
+      position: relative; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%;
+      background: var(--marigold-ink); color: var(--marigold);
+    }
+    .emergency-kicker .kicker-icon::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--marigold-ink);
+      animation: pulse 2.4s var(--ease-out) infinite;
+    }
+    .emergency h2 { max-width: 14ch; margin-top: 22px; font: 700 26px/1.15 var(--display); letter-spacing: -.03em; }
+    .emergency-number {
+      margin-top: 28px; font: 600 clamp(84px, 9vw, 112px)/.85 var(--mono); letter-spacing: -.07em;
+      background: linear-gradient(180deg, #fff 30%, #c9d6e6); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .emergency-label { margin-top: 10px; color: var(--on-night-muted); font-size: 14px; }
+    .call-btn {
+      margin-top: 24px; width: 100%; min-height: 56px; display: flex; align-items: center; justify-content: center; gap: 10px;
+      border-radius: 16px; text-decoration: none;
+      background: var(--marigold); color: var(--marigold-ink); font-size: 16px; font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 8px 20px -6px rgba(242,181,58,.55);
+    }
+    .emergency-note { margin-top: 14px; color: var(--on-night-muted); font-size: 13px; text-align: center; }
+
+    /* ───────── Section shell ───────── */
+    .section { padding: 72px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+    .kicker { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--brand); font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .kicker::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+    .section-title { font: 700 clamp(34px, 4.4vw, 52px)/1 var(--display); letter-spacing: -.04em; }
+    .head-main { display: flex; align-items: flex-start; gap: clamp(14px, 2.4vw, 28px); }
+    .sec-num { flex: none; color: var(--brand); font: 700 clamp(72px, 9vw, 120px)/.78 var(--display); letter-spacing: -.05em; }
+    .section-desc { max-width: 48ch; margin-top: 12px; color: var(--muted); font-size: 17px; }
+    .privacy-chip {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px;
+      background: var(--surface); border: 1px solid var(--line); color: var(--ink-2); font-size: 13px; white-space: nowrap;
+    }
+
+    /* ───────── Situations ───────── */
+    .finder { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 24px; align-items: start; }
+    .incident-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .incident {
+      position: relative; min-height: 76px; display: flex; align-items: center; gap: 14px; padding: 14px 16px 14px 14px;
+      border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface);
+      text-align: left; cursor: pointer; box-shadow: var(--shadow-sm);
+    }
+    .incident-icon {
+      width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px;
+      background: var(--paper-2); color: var(--ink-2);
+      transition: background-color 200ms ease, color 200ms ease;
+    }
+    .incident-name { flex: 1; font-size: 15.5px; font-weight: 600; line-height: 1.25; letter-spacing: -.01em; }
+    .incident-arrow { color: var(--muted); opacity: .6; transition: transform 220ms var(--ease-out), opacity 160ms ease, color 160ms ease; }
+    .incident[aria-pressed="true"] {
+      border-color: var(--brand); background: var(--brand-soft);
+      box-shadow: inset 0 0 0 1px var(--brand), var(--shadow-sm);
+    }
+    .incident[aria-pressed="true"] .incident-icon { background: var(--brand); color: var(--surface); }
+    .incident[aria-pressed="true"] .incident-arrow { color: var(--brand); opacity: 1; transform: translateX(2px); }
+
+    /* Route panel */
+    .route-panel {
+      position: sticky; top: 92px; min-height: 100%;
+      border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface);
+      box-shadow: var(--shadow-md); overflow: hidden;
+    }
+    .route-body {
+      padding: 28px;
+      transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out), filter 220ms var(--ease-out);
+    }
+    .route-body.is-swapping { opacity: 0; transform: translateY(6px); filter: blur(2px); transition-duration: 120ms; transition-timing-function: ease; }
+    .route-empty { min-height: 360px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 16px; }
+    .route-empty-art {
+      position: relative; width: 64px; height: 64px; display: grid; place-items: center; border-radius: 20px;
+      background: var(--brand-soft); color: var(--brand);
+    }
+    .route-empty-art::after {
+      content: ""; position: absolute; inset: -10px; border-radius: 26px; border: 1px dashed var(--line-strong);
+    }
+    .route-empty h3 { font: 700 24px/1.15 var(--display); letter-spacing: -.03em; }
+    .route-empty p { max-width: 34ch; color: var(--muted); font-size: 15px; }
+    .route-empty-hint { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; color: var(--muted); font: 500 12px var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+
+    .route-label { display: inline-flex; align-items: center; gap: 8px; color: var(--brand); font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .route-label .pulse-dot { color: var(--marigold); }
+    .route-title { margin-top: 14px; font: 700 32px/1.05 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+    .route-intro { margin-top: 12px; color: var(--muted); font-size: 15.5px; text-wrap: pretty; }
+    .steps { position: relative; display: grid; gap: 18px; margin: 26px 0 0; padding: 0; list-style: none; counter-reset: step; }
+    .steps::before { content: ""; position: absolute; left: 15px; top: 16px; bottom: 16px; width: 1px; background: var(--line-strong); }
+    .steps li {
+      position: relative; display: flex; align-items: flex-start; gap: 14px; color: var(--ink-2); font-size: 15px; line-height: 1.5;
+      animation: step-in 320ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 45ms + 60ms);
+    }
+    .steps li::before {
+      counter-increment: step; content: counter(step);
+      position: relative; z-index: 1; width: 32px; height: 32px; flex: 0 0 32px; display: grid; place-items: center;
+      border-radius: 50%; background: var(--surface); border: 1px solid var(--line-strong);
+      color: var(--ink); font: 600 13px var(--mono);
+    }
+    .steps li:first-child::before { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+    .steps li span { padding-top: 5px; }
+    @keyframes step-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .route-channels { margin-top: 28px; padding: 18px; border-radius: var(--radius-md); background: var(--surface-2); border: 1px solid var(--line); }
+    .route-channels-label { margin-bottom: 12px; color: var(--muted); font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .route-links { display: grid; gap: 8px; }
+    .route-button {
+      min-height: 48px; display: flex; align-items: center; gap: 12px; padding: 8px 14px 8px 8px;
+      border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+      color: var(--ink); text-decoration: none; font-size: 14.5px; font-weight: 600;
+    }
+    .route-button .rb-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 9px; background: var(--brand-soft); color: var(--brand); }
+    .route-button .rb-label { flex: 1; }
+    .route-button .rb-arrow { color: var(--muted); transition: transform 220ms var(--ease-out); }
+    .route-button:first-child { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .route-button:first-child .rb-icon { background: color-mix(in srgb, currentColor 14%, transparent); color: inherit; }
+    .route-button:first-child .rb-arrow { color: inherit; opacity: .7; }
+
+    .disclaimer { display: flex; gap: 10px; align-items: flex-start; margin-top: 20px; color: var(--muted); font-size: 13px; }
+    .disclaimer svg { margin-top: 2px; color: var(--coral); }
+
+    /* ───────── Help lines ───────── */
+    .support { border-top: 1px solid var(--line); }
+    .lines-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 12px; }
+    .line-card {
+      position: relative; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;
+      padding: 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface);
+      text-decoration: none; box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .line-top { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 13px; font-weight: 500; }
+    .line-call { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line-strong); color: var(--ink); transition: transform 220ms var(--ease-out), background-color 160ms ease, color 160ms ease; }
+    .line-number { font: 600 64px/.9 var(--mono); letter-spacing: -.06em; color: var(--ink); }
+    .line-name { margin-top: 8px; color: var(--ink-2); font-size: 15px; font-weight: 600; }
+    .line-card.is-primary { background: linear-gradient(165deg, var(--night-2), var(--night)); border-color: transparent; color: var(--on-night); box-shadow: var(--shadow-md); }
+    .line-card.is-primary .line-top { color: var(--marigold); }
+    .line-card.is-primary .line-number { color: #fff; }
+    .line-card.is-primary .line-name { color: var(--on-night-muted); }
+    .line-card.is-primary .line-call { background: var(--marigold); border-color: transparent; color: var(--marigold-ink); }
+
+    .places { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .place-card {
+      display: flex; align-items: center; gap: 16px; padding: 18px 18px 18px 20px;
+      border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-2);
+    }
+    .place-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--brand-soft); color: var(--brand); }
+    .place-text { min-width: 0; flex: 1; }
+    .place-text b { display: block; font-size: 15px; font-weight: 600; }
+    .place-text span { color: var(--muted); font-size: 13.5px; }
+    .place-link {
+      min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border-radius: 999px;
+      border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+      text-decoration: none; font-size: 14px; font-weight: 600; white-space: nowrap;
+    }
+
+    /* ───────── Footer ───────── */
+    .site-footer { padding: 40px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; }
+    .footer-row { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font: 700 16px var(--display); letter-spacing: -.02em; }
+    .footer-copy { max-width: 52ch; margin-top: 10px; line-height: 1.6; }
+    .footer-copy b { color: var(--ink); font-family: var(--mono); }
+    .sources { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; }
+    .sources a { color: var(--ink-2); text-decoration-color: var(--line-strong); text-underline-offset: 3px; transition: text-decoration-color 160ms ease; }
+
+    /* ───────── Glass (translucent buttons) ───────── */
+    .section { position: relative; isolation: isolate; }
+    .section::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(34% 44% at 6% 38%, color-mix(in srgb, var(--brand) 20%, transparent), transparent 72%),
+        radial-gradient(30% 40% at 94% 72%, color-mix(in srgb, var(--marigold) 26%, transparent), transparent 72%);
+    }
+    .btn-ghost, .incident, .route-button, .place-link, .line-card, .privacy-chip, .theme-toggle, .eyebrow {
+      background: var(--glass);
+      -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%);
+      box-shadow: inset 0 1px 0 var(--glass-edge), var(--shadow-sm);
+    }
+    .incident[aria-pressed="true"] {
+      background: color-mix(in srgb, var(--brand) 14%, var(--glass));
+      box-shadow: inset 0 0 0 1px var(--brand), inset 0 1px 0 var(--glass-edge), var(--shadow-sm);
+    }
+    .btn-primary, .route-button:first-child {
+      background: color-mix(in srgb, var(--ink) 88%, transparent);
+      -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), var(--shadow-md);
+    }
+    .call-pill, .fab {
+      background: color-mix(in srgb, var(--coral) 92%, transparent);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28);
+    }
+    .call-btn {
+      background: color-mix(in srgb, var(--marigold) 94%, transparent);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    }
+    .line-card.is-primary {
+      background: linear-gradient(165deg, color-mix(in srgb, var(--night-2) 92%, transparent), color-mix(in srgb, var(--night) 92%, transparent));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1), var(--shadow-md);
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      width: 40px; height: 40px; display: grid; place-items: center; margin-left: 4px; padding: 0;
+      border: 1px solid var(--line-strong); border-radius: 50%; color: var(--ink); cursor: pointer;
+    }
+    .theme-toggle svg { grid-area: 1 / 1; transition: transform 260ms var(--ease-out), opacity 200ms ease; }
+    .theme-toggle .i-sun { opacity: 0; transform: rotate(-60deg) scale(.7); }
+    .theme-toggle .i-moon { opacity: 1; transform: none; }
+    :root[data-theme="dark"] .theme-toggle .i-sun { opacity: 1; transform: none; }
+    :root[data-theme="dark"] .theme-toggle .i-moon { opacity: 0; transform: rotate(60deg) scale(.7); }
+
+    /* Floating mobile 123 */
+    .fab {
+      position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 60;
+      display: none; align-items: center; gap: 10px; min-height: 56px; padding: 0 20px 0 16px; border-radius: 999px;
+      background: var(--coral); color: #fff; text-decoration: none; font-weight: 600; font-size: 15px;
+      box-shadow: 0 10px 30px -6px rgba(184,58,39,.55), 0 2px 6px rgba(0,0,0,.15);
+    }
+    .fab .num { font-family: var(--mono); }
+
+    .hide { display: none !important; }
+
+    /* ───────── Hover (pointer devices only) ───────── */
+    @media (hover: hover) and (pointer: fine) {
+      .nav-link:hover { background: var(--paper-2); color: var(--ink); }
+      .call-pill:hover { filter: brightness(1.06); }
+      .btn-primary:hover .btn-icon { transform: translateY(2px); }
+      .btn-ghost:hover, .theme-toggle:hover, .place-link:hover { background: var(--glass-strong); border-color: var(--ink-2); }
+      .call-btn:hover { background: var(--marigold-hover); }
+      .incident:hover { border-color: var(--line-strong); box-shadow: var(--shadow-md); }
+      .incident:hover .incident-arrow { opacity: 1; transform: translateX(3px); }
+      .incident:hover .incident-icon { color: var(--brand); }
+      .incident[aria-pressed="true"]:hover .incident-icon { color: var(--surface); }
+      .route-button:hover { border-color: var(--line-strong); }
+      .route-button:hover .rb-arrow { transform: translateX(3px); }
+      .route-button:first-child:hover { filter: brightness(1.15); }
+      .line-card:hover { border-color: var(--line-strong); box-shadow: var(--shadow-md); }
+      .line-card:hover .line-call { transform: rotate(-12deg); background: var(--ink); color: var(--paper); border-color: var(--ink); }
+      .line-card.is-primary:hover .line-call { background: var(--marigold-hover); color: var(--marigold-ink); }
+      .place-link:hover { border-color: var(--ink-2); }
+      .sources a:hover { text-decoration-color: currentColor; }
+    }
+
+    /* ───────── Load reveal (once) ───────── */
+    .reveal { animation: rise 520ms var(--ease-out) both; animation-delay: calc(var(--d, 0) * 60ms + 40ms); }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+    /* ───────── Responsive ───────── */
+    .nav-link, .brand-caption, .call-pill { white-space: nowrap; }
+    @media (max-width: 900px) {
+      .brand-caption { display: none; }
+    }
+    @media (max-width: 1000px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; align-items: start; }
+      .emergency { max-width: 520px; }
+      .finder { grid-template-columns: 1fr; }
+      .route-panel { position: relative; top: 0; }
+      .route-empty { min-height: 200px; }
+      .lines-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      html { scroll-padding-top: 76px; }
+      .shell { width: calc(100% - 32px); }
+      .header-row { height: 60px; }
+      .brand-caption { display: none; }
+      .nav-link { display: none; }
+      .theme-toggle { margin-left: 0; width: 38px; height: 38px; }
+      .nav { gap: 8px; }
+      .call-pill { margin-left: 0; min-height: 38px; padding: 0 14px 0 12px; font-size: 13px; }
+      .hero { padding: 40px 0 40px; }
+      h1 { font-size: clamp(42px, 12.5vw, 60px); }
+      .hero-copy { font-size: 17px; margin-top: 18px; }
+      .hero-actions { margin-top: 26px; }
+      .btn-primary, .btn-ghost { flex: 1 1 auto; justify-content: space-between; }
+      .btn-ghost { justify-content: center; }
+      .assurances { margin-top: 28px; gap: 10px 18px; font-size: 13px; }
+      .emergency { --pad: 22px; }
+      .emergency-kicker { font-size: 16px; }
+      .emergency-number { margin-top: 20px; }
+      .section { padding: 52px 0; }
+      .section-head { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+      .sec-num { font-size: 64px; }
+      .privacy-chip { white-space: normal; }
+      .incident-grid { gap: 8px; }
+      .incident { min-height: 112px; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 14px; }
+      .incident-icon { width: 40px; height: 40px; }
+      .incident-name { font-size: 15px; flex: 0 0 auto; }
+      .incident-arrow { display: none; }
+      .route-body { padding: 22px 20px; }
+      .route-title { font-size: 27px; }
+      .route-channels { padding: 14px; }
+      .lines-grid { gap: 8px; }
+      .line-card { min-height: 150px; padding: 18px; border-radius: 20px; }
+      .line-number { font-size: 48px; }
+      .places { grid-template-columns: 1fr; gap: 8px; }
+      .place-card { flex-wrap: wrap; padding: 16px; }
+      .place-link { width: 100%; justify-content: center; }
+      .footer-row { grid-template-columns: 1fr; gap: 20px; }
+      .site-footer { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+      .fab { display: inline-flex; }
+    }
+    @media (max-width: 420px) {
+      .pill-label { display: none; }
+    }
+    @media (max-width: 360px) {
+      .lines-grid { grid-template-columns: 1fr; }
+      .incident-name { font-size: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .steps li { animation: fade 200ms ease both; animation-delay: 0ms; }
+      @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+      .pulse-dot::after { animation: none; }
+      .route-body.is-swapping { transform: none; filter: none; }
+      .press:active { transform: none; }
+      .incident-arrow, .rb-arrow, .line-call, .btn-icon { transition: none !important; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      body::before, .site-header .nav, .hero-actions, .call-btn, .route-links, .place-link, .fab { display: none !important; }
+      .site-header { position: static; }
+      .shell { width: 100%; }
+      .route-panel { position: static; }
+      .emergency, .incident, .route-panel, .line-card, .place-card { box-shadow: none; break-inside: avoid; }
+      .reveal, .steps li { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#situaciones">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="shell header-row">
+      <a class="brand" href="#inicio" aria-label="Medellín Te Orienta, inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 6v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6l8-3Z"/><path d="m8.7 12 2.2 2.2 4.6-4.7"/></svg>
+        </span>
+        <span><span class="brand-name">Medellín Te Orienta</span><span class="brand-caption">Una ruta clara para actuar</span></span>
+      </a>
+      <nav class="nav" aria-label="Navegación principal">
+        <a class="nav-link" href="#situaciones">Situaciones</a>
+        <a class="nav-link" href="#canales">Canales de ayuda</a>
+        <button class="theme-toggle press" id="themeToggle" type="button" aria-label="Cambiar a modo oscuro" aria-pressed="false">
+          <svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
+        </button>
+        <a class="call-pill press" href="tel:123" aria-label="Llamar a emergencias, línea 123"><span class="pulse-dot" aria-hidden="true"></span><span class="pill-label">Emergencias</span> <span class="num">123</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <!-- ───────── Hero ───────── -->
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <h1 class="reveal" style="--d:1">No tienes que saber <em>a dónde ir.</em></h1>
+          <p class="hero-copy reveal" style="--d:2">Cuéntanos qué pasó. Te mostramos el siguiente paso y el canal adecuado.</p>
+          <div class="hero-actions reveal" style="--d:3">
+            <a class="btn-primary press" href="#situaciones">Encontrar mi ruta
+              <span class="btn-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></span>
+            </a>
+            <a class="btn-ghost press" href="#canales">Ver líneas de ayuda</a>
+          </div>
+          <ul class="assurances reveal" style="--d:4">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Sin datos personales</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 20 6v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6l8-3Z"/></svg>Canales oficiales</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Menos de un minuto</li>
+          </ul>
+        </div>
+
+        <aside class="emergency reveal" style="--d:2" aria-labelledby="emergency-title">
+          <span class="emergency-rings" aria-hidden="true"></span>
+          <div class="emergency-kicker"><span class="kicker-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5m0 4h.01"/></svg></span>Si hay peligro inmediato</div>
+          <h2 id="emergency-title">Tu seguridad es lo primero.</h2>
+          <div class="emergency-number" aria-hidden="true">123</div>
+          <div class="emergency-label">Línea única de emergencias · 24 horas</div>
+          <a class="call-btn press" href="tel:123">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg>
+            Llamar al 123
+          </a>
+          <p class="emergency-note">Si alguien está en riesgo, no esperes a completar esta guía.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ───────── Situaciones ───────── -->
+    <section class="section" id="situaciones" aria-labelledby="situaciones-title">
+      <div class="shell">
+        <div class="section-head">
+          <div class="head-main">
+            <span class="sec-num" aria-hidden="true">1</span>
+            <div>
+              <h2 class="section-title" id="situaciones-title">¿Qué pasó?</h2>
+              <p class="section-desc">Elige la situación que más se parece a la tuya.</p>
+            </div>
+          </div>
+          <div class="privacy-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><path d="m3 3 18 18"/></svg>No necesitas compartir datos personales.</div>
+        </div>
+
+        <div class="finder">
+          <div class="incident-grid" id="incidentGrid" role="group" aria-label="Tipos de incidentes">
+            <button class="incident press" type="button" data-case="hurto" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2M12 12v4"/></svg></span><span class="incident-name">Hurto o robo</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="incident press" type="button" data-case="amenaza" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 16H3l9-16Z"/><path d="M12 9v4m0 3h.01"/></svg></span><span class="incident-name">Amenazas o agresión</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="incident press" type="button" data-case="extorsion" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6m-6 4h6m-6 4h3m-2 5h.01"/></svg></span><span class="incident-name">Extorsión o secuestro</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="incident press" type="button" data-case="violencia" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg></span><span class="incident-name">Violencia contra una mujer</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="incident press" type="button" data-case="fraude" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20m-15 5h4"/></svg></span><span class="incident-name">Estafa o fraude digital</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="incident press" type="button" data-case="desaparecido" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.8" cy="10.8" r="7.2"/><path d="m16 16 5 5M10.8 7.5v3.8m0 2.8h.01"/></svg></span><span class="incident-name">Persona desaparecida</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="incident press" type="button" data-case="danos" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7M9 9h.01M15 9h.01"/></svg></span><span class="incident-name">Daños o vandalismo</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+            <button class="incident press" type="button" data-case="otro" aria-pressed="false" aria-controls="routeRegion"><span class="incident-icon" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.5 1.5c-1.2 1.2-2.1 1.5-2.1 3m0 3h.01"/></svg></span><span class="incident-name">Otro incidente</span><svg class="incident-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+          </div>
+
+          <div class="route-panel" id="routeRegion" aria-live="polite" aria-atomic="true">
+            <div class="route-body" id="routeBody">
+              <div class="route-empty" id="routeEmpty">
+                <span class="route-empty-art" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+                <h3>Tu ruta aparecerá aquí</h3>
+                <p>Selecciona una situación para saber qué hacer, paso a paso, y a quién contactar.</p>
+                <span class="route-empty-hint" aria-hidden="true">← Elige una opción</span>
+              </div>
+              <article class="hide" id="routeCard" aria-labelledby="routeTitle">
+                <div class="route-label"><span class="pulse-dot" aria-hidden="true"></span>Tu ruta recomendada</div>
+                <h3 class="route-title" id="routeTitle"></h3>
+                <p class="route-intro" id="routeIntro"></p>
+                <ol class="steps" id="routeActions"></ol>
+                <div class="route-channels">
+                  <div class="route-channels-label">Canales para actuar</div>
+                  <div class="route-links" id="routeLinks"></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <p class="disclaimer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/></svg>Esta guía orienta, pero no recibe denuncias ni envía alertas. En una emergencia, llama al 123.</p>
+      </div>
+    </section>
+
+    <!-- ───────── Líneas de ayuda ───────── -->
+    <section class="section support" id="canales" aria-labelledby="canales-title">
+      <div class="shell">
+        <div class="section-head">
+          <div class="head-main">
+            <span class="sec-num" aria-hidden="true">2</span>
+            <div>
+              <h2 class="section-title" id="canales-title">Líneas de ayuda</h2>
+              <p class="section-desc">Contacta directamente a cada entidad.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lines-grid">
+          <a class="line-card is-primary press" href="tel:123" aria-label="Llamar al 123, Emergencias">
+            <span class="line-top"><span>24/7</span><span class="line-call" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg></span></span>
+            <span><span class="line-number">123</span><span class="line-name" style="display:block">Emergencias</span></span>
+          </a>
+          <a class="line-card press" href="tel:122" aria-label="Llamar al 122, Fiscalía">
+            <span class="line-top"><span>Denuncias</span><span class="line-call" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg></span></span>
+            <span><span class="line-number">122</span><span class="line-name" style="display:block">Fiscalía</span></span>
+          </a>
+          <a class="line-card press" href="tel:165" aria-label="Llamar al 165, GAULA, extorsión">
+            <span class="line-top"><span>Extorsión</span><span class="line-call" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg></span></span>
+            <span><span class="line-number">165</span><span class="line-name" style="display:block">GAULA · Extorsión</span></span>
+          </a>
+          <a class="line-card press" href="tel:155" aria-label="Llamar al 155, orientación a mujeres">
+            <span class="line-top"><span>Mujeres</span><span class="line-call" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg></span></span>
+            <span><span class="line-number">155</span><span class="line-name" style="display:block">Orientación a mujeres</span></span>
+          </a>
+        </div>
+
+        <div class="places" aria-label="Consulta de atención presencial">
+          <div class="place-card">
+            <span class="place-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7"/></svg></span>
+            <div class="place-text"><b>Fiscalía</b><span>Consulta sedes y puntos de denuncia</span></div>
+            <a class="place-link press" href="https://www.fiscalia.gov.co/colombia/servicios-de-informacion-al-ciudadano/donde-y-como-denunciar/" target="_blank" rel="noopener">Ver sedes <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="place-card">
+            <span class="place-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg></span>
+            <div class="place-text"><b>Policía en Medellín</b><span>Encuentra estaciones y CAI cercanos</span></div>
+            <a class="place-link press" href="https://www.google.com/maps/search/estaciones+de+policia+Medellin/" target="_blank" rel="noopener">Abrir mapa <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <div>
+        <div class="footer-brand">Medellín Te Orienta</div>
+        <p class="footer-copy">Proyecto informativo independiente. No es un canal oficial de la Alcaldía, la Policía ni la Fiscalía.</p>
+      </div>
+      <div>
+        <p class="footer-copy" style="margin-top:0">En caso de emergencia llama al <b>123</b>. Verifica horarios, requisitos y disponibilidad con cada entidad.</p>
+        <div class="sources">Fuentes:
+          <a href="https://www.medellin.gov.co/es/secretaria-seguridad/siesm/" target="_blank" rel="noopener">Alcaldía de Medellín</a>
+          <a href="https://www.fiscalia.gov.co/colombia/servicios-de-informacion-al-ciudadano/donde-y-como-denunciar/" target="_blank" rel="noopener">Fiscalía</a>
+          <a href="https://www.policia.gov.co/" target="_blank" rel="noopener">Policía Nacional</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="fab press" href="tel:123" aria-label="Llamar a emergencias, línea 123"><span class="pulse-dot" aria-hidden="true"></span>Llamar <span class="num">123</span></a>
+
+  <script>
+    const routes = {
+      hurto: {
+        title: 'Hurto o robo',
+        intro: 'Si el robo está ocurriendo o alguien está en riesgo, llama al 123. Si ya pasó, puedes denunciar ante la Fiscalía.',
+        actions: ['Ponte a salvo. No persigas al responsable.', 'Denuncia en línea o pide orientación en la Fiscalía (122).', 'Guarda fotos, facturas, seriales y datos de testigos.'],
+        links: [['Denunciar en línea', 'https://sicecon.fiscalia.gov.co/denuncia/LlenarFormulario'], ['Llamar al 122', 'tel:122']]
+      },
+      amenaza: {
+        title: 'Amenazas o agresión',
+        intro: 'Si hay una agresión en curso o temes por tu integridad, llama al 123. Cuando estés a salvo, reporta el hecho.',
+        actions: ['Aléjate del peligro y busca un lugar seguro.', 'Llama al 123 si el riesgo es inmediato.', 'Informa a la Fiscalía (122). Conserva mensajes y audios.'],
+        links: [['Llamar al 123', 'tel:123'], ['Fiscalía · 122', 'tel:122']]
+      },
+      extorsion: {
+        title: 'Extorsión o secuestro',
+        intro: 'El GAULA tiene una línea especializada. No acuerdes encuentros ni entregues dinero por tu cuenta.',
+        actions: ['Evita confrontar a los responsables.', 'Llama al GAULA (165) y sigue sus indicaciones.', 'Si hay peligro inmediato, llama al 123. Guarda mensajes y números.'],
+        links: [['Llamar al GAULA · 165', 'tel:165'], ['Emergencias · 123', 'tel:123']]
+      },
+      violencia: {
+        title: 'Violencia contra una mujer',
+        intro: 'Si estás en peligro, llama al 123. La línea 155 ofrece orientación sobre rutas de atención.',
+        actions: ['Busca un lugar seguro y apoyo de confianza.', 'Llama al 123 si hay peligro inmediato.', 'Pide orientación en el 155 o denuncia ante Fiscalía (122).'],
+        links: [['Orientación · 155', 'tel:155'], ['Emergencias · 123', 'tel:123'], ['Fiscalía · 122', 'tel:122']]
+      },
+      fraude: {
+        title: 'Estafa o fraude digital',
+        intro: 'Si entregaste dinero o datos, contacta cuanto antes a tu banco por sus canales oficiales.',
+        actions: ['Bloquea tarjetas y protege tus cuentas.', 'Guarda chats, enlaces, perfiles y comprobantes.', 'Denuncia ante Fiscalía o consulta el CAI Virtual.'],
+        links: [['Denunciar en línea', 'https://sicecon.fiscalia.gov.co/denuncia/LlenarFormulario'], ['CAI Virtual', 'https://caivirtual.policia.gov.co/']]
+      },
+      desaparecido: {
+        title: 'Persona desaparecida',
+        intro: 'Reporta la desaparición cuanto antes. No necesitas esperar para pedir orientación.',
+        actions: ['Comunícate con Fiscalía (122) y pregunta por el Mecanismo de Búsqueda Urgente.', 'Ten a mano una foto, descripción y última ubicación.', 'Llama al 123 si hay peligro inmediato.'],
+        links: [['Llamar a Fiscalía · 122', 'tel:122'], ['Emergencias · 123', 'tel:123']]
+      },
+      danos: {
+        title: 'Daños o vandalismo',
+        intro: 'Si el hecho está ocurriendo o hay personas en riesgo, llama al 123. Si ya pasó, documenta los daños.',
+        actions: ['No te acerques si hay peligro.', 'Toma fotos desde un lugar seguro.', 'Consulta cómo denunciar ante Fiscalía (122).'],
+        links: [['Llamar al 123', 'tel:123'], ['Fiscalía · 122', 'tel:122']]
+      },
+      otro: {
+        title: 'Otro incidente',
+        intro: 'Aunque no encuentres tu caso, puedes pedir orientación a las autoridades.',
+        actions: ['Si alguien está en riesgo, llama al 123.', 'Consulta con Fiscalía en la línea 122.', 'Prepara una descripción breve del hecho, el lugar y la fecha.'],
+        links: [['Emergencias · 123', 'tel:123'], ['Fiscalía · 122', 'tel:122'], ['Dónde denunciar', 'https://www.fiscalia.gov.co/colombia/servicios-de-informacion-al-ciudadano/donde-y-como-denunciar/']]
+      }
+    };
+
+    const ICONS = {
+      phone: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg>',
+      web: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+      arrow: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>',
+      external: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>'
+    };
+
+    const buttons = [...document.querySelectorAll('.incident')];
+    const panel = document.getElementById('routeRegion');
+    const body = document.getElementById('routeBody');
+    const empty = document.getElementById('routeEmpty');
+    const card = document.getElementById('routeCard');
+    const routeTitle = document.getElementById('routeTitle');
+    const routeIntro = document.getElementById('routeIntro');
+    const routeActions = document.getElementById('routeActions');
+    const routeLinks = document.getElementById('routeLinks');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const stacked = window.matchMedia('(max-width: 1000px)');
+    let swapTimer = null;
+    let current = null;
+
+    function fill(route) {
+      routeTitle.textContent = route.title;
+      routeIntro.textContent = route.intro;
+      routeActions.replaceChildren(...route.actions.map((action, i) => {
+        const li = document.createElement('li');
+        li.style.setProperty('--i', i);
+        const text = document.createElement('span');
+        text.textContent = action;
+        li.append(text);
+        return li;
+      }));
+      routeLinks.replaceChildren(...route.links.map(([label, href]) => {
+        const external = href.startsWith('http');
+        const link = document.createElement('a');
+        link.className = 'route-button press';
+        link.href = href;
+        if (external) { link.target = '_blank'; link.rel = 'noopener'; }
+        const icon = document.createElement('span');
+        icon.className = 'rb-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.innerHTML = external ? ICONS.web : ICONS.phone;
+        const text = document.createElement('span');
+        text.className = 'rb-label';
+        text.textContent = label;
+        const arrow = document.createElement('span');
+        arrow.className = 'rb-arrow';
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.innerHTML = external ? ICONS.external : ICONS.arrow;
+        link.append(icon, text, arrow);
+        return link;
+      }));
+      empty.classList.add('hide');
+      card.classList.remove('hide');
+    }
+
+    function renderRoute(key) {
+      const route = routes[key];
+      if (!route) return;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.case === key)));
+
+      if (stacked.matches) {
+        const top = panel.getBoundingClientRect().top;
+        if (top > window.innerHeight * 0.6 || top < 0) {
+          panel.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+        }
+      }
+
+      if (key === current) return;
+      current = key;
+
+      // Interruptible crossfade: fade out briefly, swap content, transition back in.
+      clearTimeout(swapTimer);
+      body.classList.add('is-swapping');
+      swapTimer = setTimeout(() => {
+        fill(route);
+        requestAnimationFrame(() => body.classList.remove('is-swapping'));
+      }, 120);
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => renderRoute(button.dataset.case));
+    });
+
+    // Theme toggle (persisted; follows the system until the user chooses)
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    function applyTheme(theme) {
+      root.dataset.theme = theme;
+      const dark = theme === 'dark';
+      toggle.setAttribute('aria-pressed', String(dark));
+      toggle.setAttribute('aria-label', dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    }
+    applyTheme(root.dataset.theme === 'dark' ? 'dark' : (root.dataset.theme === 'light' ? 'light' : (darkQuery.matches ? 'dark' : 'light')));
+    toggle.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+    darkQuery.addEventListener('change', (e) => {
+      let saved = null;
+      try { saved = localStorage.getItem('theme'); } catch (err) {}
+      if (!saved) applyTheme(e.matches ? 'dark' : 'light');
+    });
+
+    // In-page anchors: scroll explicitly so they work in any context (file://, embedded previews)
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href').slice(1);
+        const target = id ? document.getElementById(id) : null;
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+        if (id !== 'inicio') {
+          target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+        }
+      });
+    });
+
+    // Arrow-key navigation across the situation grid
+    document.getElementById('incidentGrid').addEventListener('keydown', (e) => {
+      const i = buttons.indexOf(document.activeElement);
+      if (i < 0) return;
+      const cols = 2;
+      const map = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: cols, ArrowUp: -cols };
+      if (!(e.key in map)) return;
+      const next = buttons[i + map[e.key]];
+      if (next) { e.preventDefault(); next.focus(); }
+    });
+  </script>
+</body>
+</html>
