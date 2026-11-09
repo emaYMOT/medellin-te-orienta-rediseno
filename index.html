@@ -387,7 +387,7 @@
     .support { border-top: 1px solid var(--line); }
     .lines-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 12px; }
     .line-card {
-      position: relative; min-height: 180px; display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; display: flex; flex-direction: column; justify-content: flex-start; gap: 22px;
       padding: 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface);
       text-decoration: none; box-shadow: var(--shadow-sm); overflow: hidden;
     }
@@ -549,7 +549,7 @@
       .route-body { padding: 22px 20px; }
       .route-title { font-size: 27px; }
       .lines-grid { gap: 8px; }
-      .line-card { min-height: 150px; padding: 18px; border-radius: 20px; }
+      .line-card { gap: 16px; padding: 18px; border-radius: 20px; }
       .line-number { font-size: 48px; }
       .places { grid-template-columns: 1fr; gap: 8px; }
       .place-card { flex-wrap: wrap; padding: 16px; }
